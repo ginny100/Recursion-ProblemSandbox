@@ -1,0 +1,61 @@
+# Given an array of arrays (list of list), return a stringified list that is a "flattened" version of those lists. The order of the elements in the list should be as if each list were concatenated.
+# Solve this problem recursively. You may write another function within the initial function in order to implement this recursively, but you will need to determine the function's parameters and return values yourself.
+# The recursive function does not need to be pure, it may modify out of scope data.
+# 
+# Example
+# Input: [[1,2,3],[4,5,6],[7,8,9]]
+# Return Value: [1,2,3,4,5,6,7,8,9]
+#
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'flatten_array' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts 2D_INTEGER_ARRAY matrix as parameter.
+#
+
+answer = [] #store answer in list bc string is mutable
+
+def flatten_array(matrix):
+    helper(matrix, 0, 0, []) #call recursive helper function with parameters we need to update 
+    answerStr = ""
+    for integer in answer:
+        answerStr += str(integer) + ","
+    return answerStr[:-1]
+
+def helper(matrix, row, col, queue):
+    if row < len(matrix): #ensure in bounds
+        if col < len(matrix[row]): #while we haven't reached the end of the column
+            queue.append(matrix[row][col]) #save visited number
+            helper(matrix, row, col + 1, queue) #increment to next col
+        else:
+            helper(matrix, row + 1, 0, queue) #reset
+    elif row == len(matrix) and col == 0: #base case
+        if len(queue) > 0: #if there's anything left in the queue
+            answer.append(queue.pop(0))
+            helper(matrix, row, col, queue) #call this with the same row and column to get the next item out of the queue
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    matrix_rows = int(input().strip())
+    matrix_columns = int(input().strip())
+
+    matrix = []
+
+    for _ in range(matrix_rows):
+        matrix.append(list(map(int, input().rstrip().split())))
+
+    result = flatten_array(matrix)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
