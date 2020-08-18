@@ -1,0 +1,67 @@
+/* Implement a function that uses recursion to compute and return the factorial of N.
+ * The factorial of N, which is written as N!, is defined as the product of all the integers from 1 to N.
+ */
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+string ltrim(const string &);
+string rtrim(const string &);
+
+/*
+ * Complete the 'factorialRecursion' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts INTEGER N as parameter.
+ * This function will calculate the factorial of N
+ * and return the answer. 
+ */
+
+int factorialRecursion(int N) 
+{
+    if (N > 1)
+    {
+        return N * factorialRecursion(N - 1);
+    }
+    else 
+    {
+        return 1;
+    }
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string N_temp;
+    getline(cin, N_temp);
+
+    int N = stoi(ltrim(rtrim(N_temp)));
+
+    int result = factorialRecursion(N);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}
+
+string ltrim(const string &str) 
+{
+    string s(str);
+
+    s.erase(s.begin(), find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace))));
+
+    return s;
+}
+
+string rtrim(const string &str) 
+{
+    string s(str);
+
+    s.erase(find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(), s.end());
+
+    return s;
+}
