@@ -1,0 +1,48 @@
+# A palindrome is a value that is spelled the same way normally and backwards (ex: mom, dad).
+# Given a string, recursively implement a solution that determines if the string is a palindrome or not.
+# Return true if the string is a palindrome and false if it is not.
+# 
+# Examples:
+#    bob -> returns true
+#   dog -> returns false
+#   acorn -> returns false
+#   10101 -> return true
+#
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'recursivePalindrome' function below.
+#
+# The function is expected to return a BOOLEAN.
+# The function accepts STRING s as parameter.
+# Use recursion to determine if s is a palindrome
+# or not. Return true if s is a palindrome or false
+# if s is not a palindrome. 
+#
+
+def recursivePalindrome(s):
+    if len(s) > 0:
+        if s[0] == s[-1]:
+            return recursivePalindrome(s[1:-1])
+        else:
+            return False
+    else:
+        return True
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = recursivePalindrome(s)
+
+    fptr.write(str(int(result)) + '\n')
+
+    fptr.close()
